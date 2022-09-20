@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_ui_application">
+    <sys_ui_application action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <hint/>
+        <name>Mappings</name>
+        <order/>
+        <roles>x_momo_incident_co.mappings_user</roles>
+        <sys_class_name>sys_ui_application</sys_class_name>
+        <sys_created_by>douglas.schamberg</sys_created_by>
+        <sys_created_on>2019-11-07 09:27:48</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>5d5496dcdb014010f25513296896197b</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Mappings</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Incident Converter" source="x_momo_incident_co">6502de90db014010f25513296896195f</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Incident Converter">6502de90db014010f25513296896195f</sys_scope>
+        <sys_update_name>sys_ui_application_5d5496dcdb014010f25513296896197b</sys_update_name>
+        <sys_updated_by>douglas.schamberg</sys_updated_by>
+        <sys_updated_on>2019-11-07 09:27:48</sys_updated_on>
+    </sys_ui_application>
+</record_update>

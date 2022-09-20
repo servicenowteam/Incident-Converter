@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sysevent_email_action">
+    <sysevent_email_action action="DELETE">
+        <action_insert>false</action_insert>
+        <action_update>false</action_update>
+        <active>true</active>
+        <advanced_condition/>
+        <affected_field_on_event/>
+        <category display_value="Incident" name="Incident">df0d63f3db52030012d4dbbb5e9619a5</category>
+        <collection>incident</collection>
+        <condition/>
+        <content_type>text/html</content_type>
+        <default_interval/>
+        <description/>
+        <digest_from/>
+        <digest_html/>
+        <digest_reply_to/>
+        <digest_separator_html><![CDATA[<p>&nbsp;</p>
+<hr />
+<p>&nbsp;</p>]]></digest_separator_html>
+        <digest_separator_text><![CDATA[\n--------------------------------------------------------------------------------\n]]></digest_separator_text>
+        <digest_subject/>
+        <digest_template/>
+        <digest_text/>
+        <digestable>false</digestable>
+        <event_name>x_momo_incident_co.incident.converted</event_name>
+        <event_parm_1>false</event_parm_1>
+        <event_parm_2>false</event_parm_2>
+        <exclude_delegates>false</exclude_delegates>
+        <force_delivery>false</force_delivery>
+        <from/>
+        <generation_type>event</generation_type>
+        <importance>high</importance>
+        <include_attachments>false</include_attachments>
+        <item>event.parm1</item>
+        <item_table/>
+        <mandatory>false</mandatory>
+        <message/>
+        <message_html><![CDATA[<p><span style="font-size: 14pt;">Hello ${caller_id.name},</span></p>
+<p><span style="font-size: 14pt;">Your incident has been updated to <a title="${event.parm2}" href="${event.parm1}">${event.parm2}</a>, there is nothing you need to do. If you would like to respond or view this request please <a title="click here" href="${event.parm1}" target="_blank" rel="noopener">click here</a>, or go to the <a title="self-service portal" href="https://movement.service-now.com/sp">self-service portal</a>.</span></p>]]></message_html>
+        <message_list/>
+        <message_text/>
+        <name>Incident Converted Notification</name>
+        <omit_watermark>false</omit_watermark>
+        <order>100</order>
+        <push_message_only>false</push_message_only>
+        <recipient_fields>caller_id</recipient_fields>
+        <recipient_groups/>
+        <recipient_users/>
+        <reply_to/>
+        <send_self>false</send_self>
+        <sms_alternate/>
+        <style/>
+        <subject>UPDATE: Your incident reference number has been updated!</subject>
+        <subscribable>false</subscribable>
+        <sys_class_name>sysevent_email_action</sys_class_name>
+        <sys_created_by>douglas.schamberg</sys_created_by>
+        <sys_created_on>2020-02-12 14:29:39</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>048bbe6b1b3ecc1048a242e58d4bcb23</sys_id>
+        <sys_mod_count>7</sys_mod_count>
+        <sys_name>Incident Converted Notification</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Incident Converter" source="x_momo_incident_co">6502de90db014010f25513296896195f</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Incident Converter">6502de90db014010f25513296896195f</sys_scope>
+        <sys_update_name>sysevent_email_action_048bbe6b1b3ecc1048a242e58d4bcb23</sys_update_name>
+        <sys_updated_by>douglas.schamberg</sys_updated_by>
+        <sys_updated_on>2020-02-13 12:50:22</sys_updated_on>
+        <sys_version>2</sys_version>
+        <template display_value="Default Incident Converter Template">d1a60f2b1b7ecc1048a242e58d4bcbc7</template>
+        <type>email</type>
+        <weight>0</weight>
+    </sysevent_email_action>
+    <sys_translated_text action="DELETE" query="documentkey=048bbe6b1b3ecc1048a242e58d4bcb23"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Incident Converter">6502de90db014010f25513296896195f</application>
+        <file_path/>
+        <instance_id>94e8281edbb7470060a6f0e5bf9619f6</instance_id>
+        <instance_name>movementdev</instance_name>
+        <name>sysevent_email_action_048bbe6b1b3ecc1048a242e58d4bcb23</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update sys_domain="global" table="sysevent_email_action"&gt;&lt;sysevent_email_action action="INSERT_OR_UPDATE"&gt;&lt;action_insert&gt;false&lt;/action_insert&gt;&lt;action_update&gt;false&lt;/action_update&gt;&lt;active&gt;true&lt;/active&gt;&lt;advanced_condition/&gt;&lt;affected_field_on_event/&gt;&lt;category display_value="Incident" name="Incident"&gt;df0d63f3db52030012d4dbbb5e9619a5&lt;/category&gt;&lt;collection&gt;incident&lt;/collection&gt;&lt;condition/&gt;&lt;content_type&gt;text/html&lt;/content_type&gt;&lt;default_interval/&gt;&lt;description/&gt;&lt;digest_from/&gt;&lt;digest_html/&gt;&lt;digest_reply_to/&gt;&lt;digest_separator_html&gt;&lt;![CDATA[&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;]]&gt;&lt;/digest_separator_html&gt;&lt;digest_separator_text&gt;&lt;![CDATA[\n--------------------------------------------------------------------------------\n]]&gt;&lt;/digest_separator_text&gt;&lt;digest_subject/&gt;&lt;digest_template/&gt;&lt;digest_text/&gt;&lt;digestable&gt;false&lt;/digestable&gt;&lt;event_name&gt;x_momo_incident_co.incident.converted&lt;/event_name&gt;&lt;event_parm_1&gt;false&lt;/event_parm_1&gt;&lt;event_parm_2&gt;false&lt;/event_parm_2&gt;&lt;exclude_delegates&gt;false&lt;/exclude_delegates&gt;&lt;force_delivery&gt;false&lt;/force_delivery&gt;&lt;from/&gt;&lt;generation_type&gt;event&lt;/generation_type&gt;&lt;importance&gt;high&lt;/importance&gt;&lt;include_attachments&gt;false&lt;/include_attachments&gt;&lt;item&gt;event.parm1&lt;/item&gt;&lt;item_table/&gt;&lt;mandatory&gt;false&lt;/mandatory&gt;&lt;message/&gt;&lt;message_html&gt;&lt;![CDATA[&lt;p&gt;&lt;span style="font-size: 14pt;"&gt;Hello ${caller_id.name},&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style="font-size: 14pt;"&gt;Your incident has been updated to &lt;a title="${event.parm2}" href="${event.parm1}"&gt;${event.parm2}&lt;/a&gt;, there is nothing you need to do. If you would like to respond or view this request please &lt;a title="click here" href="${event.parm1}" target="_blank" rel="noopener"&gt;click here&lt;/a&gt;, or go to the &lt;a title="self-service portal" href="https://movement.service-now.com/sp"&gt;self-service portal&lt;/a&gt;.&lt;/span&gt;&lt;/p&gt;]]&gt;&lt;/message_html&gt;&lt;message_list/&gt;&lt;message_text/&gt;&lt;name&gt;Incident Converted Notification&lt;/name&gt;&lt;omit_watermark&gt;false&lt;/omit_watermark&gt;&lt;order&gt;100&lt;/order&gt;&lt;push_message_only&gt;false&lt;/push_message_only&gt;&lt;recipient_fields&gt;caller_id&lt;/recipient_fields&gt;&lt;recipient_groups/&gt;&lt;recipient_users/&gt;&lt;reply_to/&gt;&lt;send_self&gt;false&lt;/send_self&gt;&lt;sms_alternate/&gt;&lt;style/&gt;&lt;subject&gt;UPDATE: Your incident reference number has been updated!&lt;/subject&gt;&lt;subscribable&gt;false&lt;/subscribable&gt;&lt;sys_class_name&gt;sysevent_email_action&lt;/sys_class_name&gt;&lt;sys_created_by&gt;douglas.schamberg&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2020-02-12 14:29:39&lt;/sys_created_on&gt;&lt;sys_customer_update&gt;false&lt;/sys_customer_update&gt;&lt;sys_domain&gt;global&lt;/sys_domain&gt;&lt;sys_domain_path&gt;/&lt;/sys_domain_path&gt;&lt;sys_id&gt;048bbe6b1b3ecc1048a242e58d4bcb23&lt;/sys_id&gt;&lt;sys_mod_count&gt;7&lt;/sys_mod_count&gt;&lt;sys_name&gt;Incident Converted Notification&lt;/sys_name&gt;&lt;sys_overrides/&gt;&lt;sys_package display_value="Incident Converter" source="x_momo_incident_co"&gt;6502de90db014010f25513296896195f&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_replace_on_upgrade&gt;false&lt;/sys_replace_on_upgrade&gt;&lt;sys_scope display_value="Incident Converter"&gt;6502de90db014010f25513296896195f&lt;/sys_scope&gt;&lt;sys_update_name&gt;sysevent_email_action_048bbe6b1b3ecc1048a242e58d4bcb23&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;douglas.schamberg&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2020-02-13 12:50:22&lt;/sys_updated_on&gt;&lt;sys_version&gt;2&lt;/sys_version&gt;&lt;template display_value="Default Incident Converter Template"&gt;d1a60f2b1b7ecc1048a242e58d4bcbc7&lt;/template&gt;&lt;type&gt;email&lt;/type&gt;&lt;weight&gt;0&lt;/weight&gt;&lt;/sysevent_email_action&gt;&lt;sys_translated_text action="delete_multiple" query="documentkey=048bbe6b1b3ecc1048a242e58d4bcb23"/&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>-470627392</payload_hash>
+        <record_name>Incident Converted Notification</record_name>
+        <reverted_from/>
+        <source>9661f6401b12089048a242e58d4bcbaa</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>douglas.schamberg</sys_created_by>
+        <sys_created_on>2020-02-13 12:50:22</sys_created_on>
+        <sys_id>dc8ee77b1b36405048a242e58d4bcbde</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1703e99a9f90000001</sys_recorded_at>
+        <sys_updated_by>douglas.schamberg</sys_updated_by>
+        <sys_updated_on>2020-02-13 12:50:22</sys_updated_on>
+        <type>Notification</type>
+        <update_guid>548ee77bbf3640506cd02269e749b4de</update_guid>
+        <update_guid_history>548ee77bbf3640506cd02269e749b4de:-470627392,108d633bec36405094d8eb4b27306c4a:-2046240292,372a27f3993640508a4425b4278d3a29:849721899,2809233393364050cba5a5a71d4dad3e:-893686244,ea470f2bdb7ecc10efb0556b1fcee9e8:-68367574,580cbaab723ecc1057a59c3396410607:1650181065,c4fbbe6bd93ecc10a5803ea83b54563b:1411701618,78abb26bc13ecc101ba4098bf8a90e7a:-1319988828</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>douglas.schamberg</sys_created_by>
+        <sys_created_on>2020-03-10 19:35:09</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_db_object display_value="" name="sysevent_email_action">sysevent_email_action</sys_db_object>
+        <sys_id>0775b84d4aaf4f6892c002d449e7cf01</sys_id>
+        <sys_metadata>048bbe6b1b3ecc1048a242e58d4bcb23</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Incident Converted Notification</sys_name>
+        <sys_package display_value="Incident Converter" source="x_momo_incident_co">6502de90db014010f25513296896195f</sys_package>
+        <sys_parent display_value="Incident">0628f274db60320093373c8f9d961919</sys_parent>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Incident Converter">6502de90db014010f25513296896195f</sys_scope>
+        <sys_scope_delete display_value="">853977b6927546409fb15b02df636100</sys_scope_delete>
+        <sys_update_name>sysevent_email_action_048bbe6b1b3ecc1048a242e58d4bcb23</sys_update_name>
+        <sys_update_version display_value="sysevent_email_action_048bbe6b1b3ecc1048a242e58d4bcb23">dc8ee77b1b36405048a242e58d4bcbde</sys_update_version>
+        <sys_updated_by>douglas.schamberg</sys_updated_by>
+        <sys_updated_on>2020-03-10 19:35:09</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

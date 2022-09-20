@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sysevent_script_action">
+    <sysevent_script_action action="DELETE">
+        <active>false</active>
+        <condition_script/>
+        <description/>
+        <event_name/>
+        <name>Request Created Handler</name>
+        <order>100</order>
+        <script><![CDATA[(function (current, event) {
+  var incident = current;
+  var request = event.parm1;
+  var mapping = retrieveMappings(incident.getValue('category'), incident.getValue('subcategory'));
+  var incident_link = gs.getProperty('glide.servlet.uri') + 'nav_to.do?uri=incident.do?sys_id=' + incident.getUniqueValue();
+  var updatedItem = updateRequest(request, incident_link);
+  var link = gs.getProperty('glide.servlet.uri') + 'sp?id=sc_request&table=sc_request&sys_id=' + request;
+  var interal_link = gs.getProperty('glide.servlet.uri') + 'nav_to.do?uri=sc_req_item.do?sys_id=' + updatedItem.getUniqueValue();
+  gs.eventQueue('x_momo_incident_co.incident.converted', incident, link, updatedItem.number.toString());
+  incident.active = false;
+
+  incident.state = '7';
+  incident.close_code = 'Closed/Resolved by Caller';
+  incident.close_notes = 'Coverted to ' + updatedItem.number.toString();
+
+  incident.update();
+
+
+  function updateRequest(item_id, incidentLink) {
+    var sc = new GlideRecord('sc_req_item');
+    sc.addQuery('request', item_id);
+    sc.query();
+    var SysAttachment = new GlideSysAttachment();
+    while (sc.next()) {
+      var journal_entries = incident.comments_and_work_notes.getJournalEntry(-1);
+      format_journal_entries(journal_entries, sc);
+      incident.work_notes = '[code]<b>Incident successfully converted to <a href="' + interal_link + '" target="_blank">Request</a></b>[/code]';
+      incident.update();
+      sc.u_mm_company = incident.getValue('u_company');
+      SysAttachment.copy('incident', incident.sys_id.toString(), 'sc_req_item', sc.sys_id.toString());
+      if (mapping.assignment_group && mapping.assignment_group != '') {
+        sc.assignment_group = mapping.assignment_group;
+      } else {
+        sc.assignment_group = incident.getValue('assignment_group');
+      }
+
+
+      if (mapping.assignment_group && mapping.assignment_group != '') {
+        sc.assigned_to = mapping.assigned_to;
+      } else if (!incident.assigned_to.nil()) {
+        sc.assigned_to = incident.getValue('assigned_to');
+      } else {
+        sc.assigned_to = gs.getUserID();
+      }
+
+      if (!incident.watch_list.nil()) {
+        sc.watch_list = incident.getValue('watch_list');
+      }
+      sc.work_notes = '[code]<b>Incident successfully converted from <a href="' + incidentLink + '" target="_blank">Incident</a></b>[/code]';
+      sc.update();
+    }
+    return sc;
+  }
+
+  function format_journal_entries(entry, j_item) {
+    var splt = entry.split(/[0-9]{4}\-[0-9]{2}\-[0-9]{2} [0-9]{2}\:[0-9]{2}\:[0-9]{2} \- .+ (\(Work notes\)|\(Additional comments\))\n/img);
+    var journal_split = splt.reverse();
+    for (var i = 0; i < journal_split.length; i++) {
+      if (/Work notes/gi.test(journal_split[i])) {
+        j_item.work_notes = journal_split[i - 1].trim();
+        j_item.update();
+      } else if (/Additional comments/gi.test(journal_split[i])) {
+        j_item.comments = journal_split[i - 1].trim();
+        j_item.update();
+      }
+    }
+  }
+
+  function retrieveMappings(cat, subcat) {
+    var gr = new GlideRecord('x_momo_incident_co_mappings');
+    var obj = {};
+    gr.addQuery('active', true);
+    gr.addQuery('category', cat);
+    if (!subcat) {
+      gr.addNullQuery('subcategory');
+    } else {
+      gr.addQuery('subcategory', subcat);
+    }
+
+    gr.query();
+    if (!gr.hasNext()) return false;
+    while (gr.next()) {
+      if (!gr.assignment_group.nil()) {
+        obj.assignment_group = gr.getValue('assignment_group');
+      }
+
+      if (!gr.assigned_to.nil()) {
+        obj.assigned_to = gr.getValue('assigned_to');
+      }
+
+      obj.catalog_item = gr.getValue('catalog_item');
+    }
+
+    return obj;
+  }
+})(current, event);]]></script>
+        <synchronous>false</synchronous>
+        <sys_class_name>sysevent_script_action</sys_class_name>
+        <sys_created_by>douglas.schamberg</sys_created_by>
+        <sys_created_on>2020-05-08 19:09:11</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>bd54f6171b24581048a242e58d4bcbde</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_name>Request Created Handler</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Incident Converter" source="x_momo_incident_co">6502de90db014010f25513296896195f</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Incident Converter">6502de90db014010f25513296896195f</sys_scope>
+        <sys_update_name>sysevent_script_action_bd54f6171b24581048a242e58d4bcbde</sys_update_name>
+        <sys_updated_by>douglas.schamberg</sys_updated_by>
+        <sys_updated_on>2020-05-08 19:31:37</sys_updated_on>
+    </sysevent_script_action>
+    <sys_translated_text action="DELETE" query="documentkey=bd54f6171b24581048a242e58d4bcbde"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Incident Converter">6502de90db014010f25513296896195f</application>
+        <file_path/>
+        <instance_id>94e8281edbb7470060a6f0e5bf9619f6</instance_id>
+        <instance_name>movementdev</instance_name>
+        <name>sysevent_script_action_bd54f6171b24581048a242e58d4bcbde</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update sys_domain="global" table="sysevent_script_action"&gt;&lt;sysevent_script_action action="INSERT_OR_UPDATE"&gt;&lt;active&gt;false&lt;/active&gt;&lt;condition_script/&gt;&lt;description/&gt;&lt;event_name/&gt;&lt;name&gt;Request Created Handler&lt;/name&gt;&lt;order&gt;100&lt;/order&gt;&lt;script&gt;&lt;![CDATA[(function (current, event) {
+  var incident = current;
+  var request = event.parm1;
+  var mapping = retrieveMappings(incident.getValue('category'), incident.getValue('subcategory'));
+  var incident_link = gs.getProperty('glide.servlet.uri') + 'nav_to.do?uri=incident.do?sys_id=' + incident.getUniqueValue();
+  var updatedItem = updateRequest(request, incident_link);
+  var link = gs.getProperty('glide.servlet.uri') + 'sp?id=sc_request&amp;table=sc_request&amp;sys_id=' + request;
+  var interal_link = gs.getProperty('glide.servlet.uri') + 'nav_to.do?uri=sc_req_item.do?sys_id=' + updatedItem.getUniqueValue();
+  gs.eventQueue('x_momo_incident_co.incident.converted', incident, link, updatedItem.number.toString());
+  incident.active = false;
+
+  incident.state = '7';
+  incident.close_code = 'Closed/Resolved by Caller';
+  incident.close_notes = 'Coverted to ' + updatedItem.number.toString();
+
+  incident.update();
+
+
+  function updateRequest(item_id, incidentLink) {
+    var sc = new GlideRecord('sc_req_item');
+    sc.addQuery('request', item_id);
+    sc.query();
+    var SysAttachment = new GlideSysAttachment();
+    while (sc.next()) {
+      var journal_entries = incident.comments_and_work_notes.getJournalEntry(-1);
+      format_journal_entries(journal_entries, sc);
+      incident.work_notes = '[code]&lt;b&gt;Incident successfully converted to &lt;a href="' + interal_link + '" target="_blank"&gt;Request&lt;/a&gt;&lt;/b&gt;[/code]';
+      incident.update();
+      sc.u_mm_company = incident.getValue('u_company');
+      SysAttachment.copy('incident', incident.sys_id.toString(), 'sc_req_item', sc.sys_id.toString());
+      if (mapping.assignment_group &amp;&amp; mapping.assignment_group != '') {
+        sc.assignment_group = mapping.assignment_group;
+      } else {
+        sc.assignment_group = incident.getValue('assignment_group');
+      }
+
+
+      if (mapping.assignment_group &amp;&amp; mapping.assignment_group != '') {
+        sc.assigned_to = mapping.assigned_to;
+      } else if (!incident.assigned_to.nil()) {
+        sc.assigned_to = incident.getValue('assigned_to');
+      } else {
+        sc.assigned_to = gs.getUserID();
+      }
+
+      if (!incident.watch_list.nil()) {
+        sc.watch_list = incident.getValue('watch_list');
+      }
+      sc.work_notes = '[code]&lt;b&gt;Incident successfully converted from &lt;a href="' + incidentLink + '" target="_blank"&gt;Incident&lt;/a&gt;&lt;/b&gt;[/code]';
+      sc.update();
+    }
+    return sc;
+  }
+
+  function format_journal_entries(entry, j_item) {
+    var splt = entry.split(/[0-9]{4}\-[0-9]{2}\-[0-9]{2} [0-9]{2}\:[0-9]{2}\:[0-9]{2} \- .+ (\(Work notes\)|\(Additional comments\))\n/img);
+    var journal_split = splt.reverse();
+    for (var i = 0; i &lt; journal_split.length; i++) {
+      if (/Work notes/gi.test(journal_split[i])) {
+        j_item.work_notes = journal_split[i - 1].trim();
+        j_item.update();
+      } else if (/Additional comments/gi.test(journal_split[i])) {
+        j_item.comments = journal_split[i - 1].trim();
+        j_item.update();
+      }
+    }
+  }
+
+  function retrieveMappings(cat, subcat) {
+    var gr = new GlideRecord('x_momo_incident_co_mappings');
+    var obj = {};
+    gr.addQuery('active', true);
+    gr.addQuery('category', cat);
+    if (!subcat) {
+      gr.addNullQuery('subcategory');
+    } else {
+      gr.addQuery('subcategory', subcat);
+    }
+
+    gr.query();
+    if (!gr.hasNext()) return false;
+    while (gr.next()) {
+      if (!gr.assignment_group.nil()) {
+        obj.assignment_group = gr.getValue('assignment_group');
+      }
+
+      if (!gr.assigned_to.nil()) {
+        obj.assigned_to = gr.getValue('assigned_to');
+      }
+
+      obj.catalog_item = gr.getValue('catalog_item');
+    }
+
+    return obj;
+  }
+})(current, event);]]&gt;&lt;/script&gt;&lt;synchronous&gt;false&lt;/synchronous&gt;&lt;sys_class_name&gt;sysevent_script_action&lt;/sys_class_name&gt;&lt;sys_created_by&gt;douglas.schamberg&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2020-05-08 19:09:11&lt;/sys_created_on&gt;&lt;sys_customer_update&gt;false&lt;/sys_customer_update&gt;&lt;sys_domain&gt;global&lt;/sys_domain&gt;&lt;sys_domain_path&gt;/&lt;/sys_domain_path&gt;&lt;sys_id&gt;bd54f6171b24581048a242e58d4bcbde&lt;/sys_id&gt;&lt;sys_mod_count&gt;5&lt;/sys_mod_count&gt;&lt;sys_name&gt;Request Created Handler&lt;/sys_name&gt;&lt;sys_overrides/&gt;&lt;sys_package display_value="Incident Converter" source="x_momo_incident_co"&gt;6502de90db014010f25513296896195f&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_replace_on_upgrade&gt;false&lt;/sys_replace_on_upgrade&gt;&lt;sys_scope display_value="Incident Converter"&gt;6502de90db014010f25513296896195f&lt;/sys_scope&gt;&lt;sys_update_name&gt;sysevent_script_action_bd54f6171b24581048a242e58d4bcbde&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;douglas.schamberg&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2020-05-08 19:31:37&lt;/sys_updated_on&gt;&lt;/sysevent_script_action&gt;&lt;sys_translated_text action="delete_multiple" query="documentkey=bd54f6171b24581048a242e58d4bcbde"/&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>-281062873</payload_hash>
+        <record_name>Request Created Handler</record_name>
+        <reverted_from/>
+        <source>9661f6401b12089048a242e58d4bcbaa</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>douglas.schamberg</sys_created_by>
+        <sys_created_on>2020-05-08 19:31:37</sys_created_on>
+        <sys_id>ea79721f1b24581048a242e58d4bcb3b</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>171f5c591560000001</sys_recorded_at>
+        <sys_updated_by>douglas.schamberg</sys_updated_by>
+        <sys_updated_on>2020-05-08 19:31:37</sys_updated_on>
+        <type>Script Action</type>
+        <update_guid>2279721f672458107f270e513dbcf43b</update_guid>
+        <update_guid_history>2279721f672458107f270e513dbcf43b:-281062873,82d7f2dbe3245810b5bf96f1f1f37a4f:2130832038,38c67a5b8a245810e550dccad71e2044:-391381615,84e5721b1724581037b5af82b20071c1:-919627992,c6d5721b062458108f01250bed7b0738:-256862593,7954f617b5245810868ce323bb4671e1:87718686</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>douglas.schamberg</sys_created_by>
+        <sys_created_on>2020-05-08 19:46:11</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_db_object display_value="" name="sysevent_script_action">sysevent_script_action</sys_db_object>
+        <sys_id>0b9241fa941e4b68809a63787a44f440</sys_id>
+        <sys_metadata>bd54f6171b24581048a242e58d4bcbde</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Request Created Handler</sys_name>
+        <sys_package display_value="Incident Converter" source="x_momo_incident_co">6502de90db014010f25513296896195f</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Incident Converter">6502de90db014010f25513296896195f</sys_scope>
+        <sys_scope_delete display_value="">853977b6927546409fb15b02df636100</sys_scope_delete>
+        <sys_update_name>sysevent_script_action_bd54f6171b24581048a242e58d4bcbde</sys_update_name>
+        <sys_update_version display_value="sysevent_script_action_bd54f6171b24581048a242e58d4bcbde">ea79721f1b24581048a242e58d4bcb3b</sys_update_version>
+        <sys_updated_by>douglas.schamberg</sys_updated_by>
+        <sys_updated_on>2020-05-08 19:46:11</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

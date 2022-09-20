@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sysevent_script_action">
+    <sysevent_script_action action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <condition_script/>
+        <description/>
+        <event_name>x_momo_incident_co.incident.created</event_name>
+        <name>Request Created Handler</name>
+        <order>100</order>
+        <script><![CDATA[(function (current, event) {
+  var incident = current;
+  var request = event.parm1;
+  var mapping = retrieveMappings(incident.getValue('category'), incident.getValue('subcategory'));
+  var incident_link = gs.getProperty('glide.servlet.uri') + 'nav_to.do?uri=incident.do?sys_id=' + incident.getUniqueValue();
+  var updatedItem = updateRequest(request, incident_link);
+  updateSCRequest(request, incident.getValue('caller_id'));
+  var link = gs.getProperty('glide.servlet.uri') + 'sp?id=sc_request&table=sc_request&sys_id=' + request;
+  gs.eventQueue('x_momo_incident_co.incident.converted', incident, link, updatedItem.number.toString());
+  incident.active = false;
+
+  incident.state = '7';
+  incident.close_code = 'Closed/Resolved by Caller';
+  incident.close_notes = 'Coverted to ' + updatedItem.number.toString();
+
+  incident.update();
+
+  function updateSCRequest(requestID, caller) {
+    var req = new GlideRecord('sc_request');
+    req.get(requestID);
+    if (req.isValidRecord()) {
+      req.requested_for = caller;
+      req.update();
+    }
+  }
+
+  function updateRequest(item_id, incidentLink) {
+    var sc = new GlideRecord('sc_req_item');
+    sc.addQuery('request', item_id);
+    sc.query();
+    var SysAttachment = new GlideSysAttachment();
+    while (sc.next()) {
+      var journal_entries = incident.comments_and_work_notes.getJournalEntry(-1);
+      format_journal_entries(journal_entries, sc);
+
+      sc.u_mm_company = incident.getValue('u_company');
+      SysAttachment.copy('incident', incident.sys_id.toString(), 'sc_req_item', sc.sys_id.toString());
+      if (mapping.assignment_group && mapping.assignment_group != '') {
+        sc.assignment_group = mapping.assignment_group;
+      } else {
+        sc.assignment_group = incident.getValue('assignment_group');
+      }
+
+
+      if (mapping.assignment_group && mapping.assignment_group != '') {
+        sc.assigned_to = mapping.assigned_to;
+      } else if (!incident.assigned_to.nil()) {
+        sc.assigned_to = incident.getValue('assigned_to');
+      } else {
+        sc.assigned_to = gs.getUserID();
+      }
+
+      if (!incident.watch_list.nil()) {
+        sc.watch_list = incident.getValue('watch_list');
+      }
+      sc.work_notes = '[code]<b>Incident successfully converted from <a href="' + incidentLink + '" target="_blank">Incident</a></b>[/code]';
+      sc.requested_for = incident.getValue('caller_id');
+      sc.update();
+      var internalLink = gs.getProperty('glide.servlet.uri') + 'nav_to.do?uri=sc_req_item.do?sys_id=' + sc.getUniqueValue();
+      incident.work_notes = '[code]<b>Incident successfully converted to <a href="' + internalLink + '" target="_blank">Request</a></b>[/code]';
+      incident.update();
+    }
+    return sc;
+  }
+
+  function format_journal_entries(entry, j_item) {
+    var splt = entry.split(/[0-9]{4}\-[0-9]{2}\-[0-9]{2} [0-9]{2}\:[0-9]{2}\:[0-9]{2} \- .+ (\(Work notes\)|\(Additional comments\))\n/img);
+    var journal_split = splt.reverse();
+    for (var i = 0; i < journal_split.length; i++) {
+      if (/Work notes/gi.test(journal_split[i])) {
+        j_item.work_notes = journal_split[i - 1].trim();
+        j_item.update();
+      } else if (/Additional comments/gi.test(journal_split[i])) {
+        j_item.comments = journal_split[i - 1].trim();
+        j_item.update();
+      }
+    }
+
+  }
+
+  function retrieveMappings(cat, subcat) {
+    var gr = new GlideRecord('x_momo_incident_co_mappings');
+    var obj = {};
+    gr.addQuery('active', true);
+    gr.addQuery('category', cat);
+    if (!subcat) {
+      gr.addNullQuery('subcategory');
+    } else {
+      gr.addQuery('subcategory', subcat);
+    }
+
+    gr.query();
+    if (!gr.hasNext()) return false;
+    while (gr.next()) {
+      if (!gr.assignment_group.nil()) {
+        obj.assignment_group = gr.getValue('assignment_group');
+      }
+
+      if (!gr.assigned_to.nil()) {
+        obj.assigned_to = gr.getValue('assigned_to');
+      }
+
+      obj.catalog_item = gr.getValue('catalog_item');
+    }
+
+    return obj;
+  }
+})(current, event);]]></script>
+        <synchronous>false</synchronous>
+        <sys_class_name>sysevent_script_action</sys_class_name>
+        <sys_created_by>douglas.schamberg</sys_created_by>
+        <sys_created_on>2020-03-09 19:11:43</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>cb6575441beb049048a242e58d4bcb8f</sys_id>
+        <sys_mod_count>30</sys_mod_count>
+        <sys_name>Request Created Handler</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Incident Converter" source="x_momo_incident_co">6502de90db014010f25513296896195f</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Incident Converter">6502de90db014010f25513296896195f</sys_scope>
+        <sys_update_name>sysevent_script_action_cb6575441beb049048a242e58d4bcb8f</sys_update_name>
+        <sys_updated_by>douglas.schamberg</sys_updated_by>
+        <sys_updated_on>2020-05-09 12:07:37</sys_updated_on>
+    </sysevent_script_action>
+    <sys_translated_text action="delete_multiple" query="documentkey=cb6575441beb049048a242e58d4bcb8f"/>
+</record_update>

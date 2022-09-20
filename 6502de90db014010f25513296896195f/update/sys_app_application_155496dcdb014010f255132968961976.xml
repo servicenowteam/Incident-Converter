@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_app_application">
+    <sys_app_application action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <category display_value="Custom Applications">e0355b31ef303000a61d5a3615c0fb78</category>
+        <description/>
+        <device_type>browser</device_type>
+        <hint/>
+        <mobile_app_menu/>
+        <name>Mappings</name>
+        <order>100</order>
+        <roles>x_momo_incident_co.mappings_user</roles>
+        <sys_class_name>sys_app_application</sys_class_name>
+        <sys_created_by>douglas.schamberg</sys_created_by>
+        <sys_created_on>2019-11-07 09:27:48</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>155496dcdb014010f255132968961976</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>Incident Converter</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Incident Converter" source="x_momo_incident_co">6502de90db014010f25513296896195f</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Incident Converter">6502de90db014010f25513296896195f</sys_scope>
+        <sys_update_name>sys_app_application_155496dcdb014010f255132968961976</sys_update_name>
+        <sys_updated_by>douglas.schamberg</sys_updated_by>
+        <sys_updated_on>2019-11-07 09:52:43</sys_updated_on>
+        <title>Incident Converter</title>
+        <view_name/>
+        <view_on_mobile>false</view_on_mobile>
+    </sys_app_application>
+</record_update>

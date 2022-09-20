@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_ui_action">
+    <sys_ui_action action="INSERT_OR_UPDATE">
+        <action_name>sysverb_convert</action_name>
+        <active>true</active>
+        <client>false</client>
+        <client_script_v2><![CDATA[function onClick(g_form) {
+
+}]]></client_script_v2>
+        <comments/>
+        <condition>!current.category.nil() &amp;&amp; current.closed_by.nil() &amp;&amp; current.getValue('state') !=  7</condition>
+        <form_action>true</form_action>
+        <form_button>true</form_button>
+        <form_button_v2>false</form_button_v2>
+        <form_context_menu>false</form_context_menu>
+        <form_link>false</form_link>
+        <form_menu_button_v2>false</form_menu_button_v2>
+        <form_style>unstyled</form_style>
+        <format_for_configurable_workspace>false</format_for_configurable_workspace>
+        <hint/>
+        <isolate_script>false</isolate_script>
+        <list_action>false</list_action>
+        <list_banner_button>false</list_banner_button>
+        <list_button>false</list_button>
+        <list_choice>false</list_choice>
+        <list_context_menu>false</list_context_menu>
+        <list_link>false</list_link>
+        <list_save_with_form_button>false</list_save_with_form_button>
+        <list_style/>
+        <messages/>
+        <name>Create Request</name>
+        <onclick/>
+        <order>106</order>
+        <script><![CDATA[var mapping = retrieveMappings(current.getValue('category'), current.getValue('subcategory'));
+
+var item = createRequest(mapping);
+if (item) {
+ 
+  var request = getRequestRecord(item.request_id);
+  if (request) {
+    gs.eventQueue('x_momo_incident_co.incident.created', current, item.request_id);
+    action.setRedirectURL(request);
+  } else {
+    gs.addErrorMessage('We could not create a request for ' + current.number + '. Please contact your administrator');
+    action.setRedirectURL(current);
+  }
+} else {
+  gs.addErrorMessage('We could not create a request for ' + current.number + ' . There is no mapping set for category: ' + current.category + ' and subcategory: ' + current.subcategory);
+  action.setRedirectURL(current);
+}
+
+function getRequestRecord(sys_id) {
+  var sc = new GlideRecord('sc_req_item');
+  sc.get("request", sys_id);
+  if (sc.isValid()) return sc;
+  return false;
+}
+
+function createRequest(mapping) {
+  if (!mapping) return;
+
+  var cart = new sn_sc.CartJS();
+
+  var requested_for = current.caller_id.nil() ? gs.getUserID() : current.getValue('caller_id');
+
+  var variables = {
+    item_requested_for: requested_for,
+    request_additional_details: (!current.short_description.nil() ? 'Short Description: ' + current.getValue('short_description') : '') + (!current.description.nil() ? '\n\nDescription: ' + current.getValue('description') : '')
+  };
+
+  var mapped_item = {
+    sysparm_id: mapping.catalog_item,
+    variables: variables,
+    sysparm_quantity: '1'
+  };
+
+  cart.addToCart(mapped_item);
+
+  var request = {
+    special_instructions: '',
+    delivery_address: ''
+  };
+  return cart.submitOrder(request);
+}
+
+function retrieveMappings(cat, subcat) {
+  var gr = new GlideRecord('x_momo_incident_co_mappings');
+  var obj = {};
+  gr.addQuery('active', true);
+  gr.addQuery('category', cat);
+  if (!subcat) {
+    gr.addNullQuery('subcategory');
+  } else {
+    gr.addQuery('subcategory', subcat);
+  }
+  
+  gr.query();
+  if (!gr.hasNext()) return false;
+  while (gr.next()) {
+    if (!gr.assignment_group.nil()) {
+      obj.assignment_group = gr.getValue('assignment_group');
+    }
+
+    if (!gr.assigned_to.nil()) {
+      obj.assigned_to = gr.getValue('assigned_to'); 
+    }
+
+    obj.catalog_item = gr.getValue('catalog_item');
+  }
+
+  return obj;
+}]]></script>
+        <show_insert>false</show_insert>
+        <show_multiple_update>false</show_multiple_update>
+        <show_query>false</show_query>
+        <show_update>true</show_update>
+        <sys_class_name>sys_ui_action</sys_class_name>
+        <sys_created_by>douglas.schamberg</sys_created_by>
+        <sys_created_on>2019-11-07 09:21:36</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>fd121a5cdb014010f2551329689619e9</sys_id>
+        <sys_mod_count>71</sys_mod_count>
+        <sys_name>Create Request</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Incident Converter" source="x_momo_incident_co">6502de90db014010f25513296896195f</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Incident Converter">6502de90db014010f25513296896195f</sys_scope>
+        <sys_update_name>sys_ui_action_fd121a5cdb014010f2551329689619e9</sys_update_name>
+        <sys_updated_by>douglas.schamberg</sys_updated_by>
+        <sys_updated_on>2020-05-09 12:19:46</sys_updated_on>
+        <table>incident</table>
+        <ui11_compatible>true</ui11_compatible>
+        <ui16_compatible>false</ui16_compatible>
+    </sys_ui_action>
+</record_update>

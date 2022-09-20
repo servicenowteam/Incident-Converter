@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl_role">
+    <sys_security_acl_role action="DELETE">
+        <sys_class_name>sys_security_acl_role</sys_class_name>
+        <sys_created_by>douglas.schamberg</sys_created_by>
+        <sys_created_on>2020-03-09 20:07:59</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>344206c81b2f049048a242e58d4bcb54</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>.x_momo_incident_co.journal_reader</sys_name>
+        <sys_package display_value="Incident Converter" source="x_momo_incident_co">6502de90db014010f25513296896195f</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Incident Converter">6502de90db014010f25513296896195f</sys_scope>
+        <sys_security_acl display_value="">ab328a881b2f049048a242e58d4bcb39</sys_security_acl>
+        <sys_update_name>sys_security_acl_role_344206c81b2f049048a242e58d4bcb54</sys_update_name>
+        <sys_updated_by>douglas.schamberg</sys_updated_by>
+        <sys_updated_on>2020-03-09 20:07:59</sys_updated_on>
+        <sys_user_role display_value="x_momo_incident_co.journal_reader" name="x_momo_incident_co.journal_reader">077186881b2f049048a242e58d4bcb7d</sys_user_role>
+        <transaction_id/>
+    </sys_security_acl_role>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Incident Converter">6502de90db014010f25513296896195f</application>
+        <file_path/>
+        <instance_id>94e8281edbb7470060a6f0e5bf9619f6</instance_id>
+        <instance_name>movementdev</instance_name>
+        <name>sys_security_acl_role_344206c81b2f049048a242e58d4bcb54</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl_role"><sys_security_acl_role action="INSERT_OR_UPDATE"><sys_class_name>sys_security_acl_role</sys_class_name><sys_created_by>douglas.schamberg</sys_created_by><sys_created_on>2020-03-09 20:07:59</sys_created_on><sys_customer_update>false</sys_customer_update><sys_id>344206c81b2f049048a242e58d4bcb54</sys_id><sys_mod_count>0</sys_mod_count><sys_name>.x_momo_incident_co.journal_reader</sys_name><sys_package display_value="Incident Converter" source="x_momo_incident_co">6502de90db014010f25513296896195f</sys_package><sys_policy/><sys_replace_on_upgrade>false</sys_replace_on_upgrade><sys_scope display_value="Incident Converter">6502de90db014010f25513296896195f</sys_scope><sys_security_acl display_value="">ab328a881b2f049048a242e58d4bcb39</sys_security_acl><sys_update_name>sys_security_acl_role_344206c81b2f049048a242e58d4bcb54</sys_update_name><sys_updated_by>douglas.schamberg</sys_updated_by><sys_updated_on>2020-03-09 20:07:59</sys_updated_on><sys_user_role display_value="x_momo_incident_co.journal_reader" name="x_momo_incident_co.journal_reader">077186881b2f049048a242e58d4bcb7d</sys_user_role><transaction_id/></sys_security_acl_role></record_update>]]></payload>
+        <payload_hash>1147348825</payload_hash>
+        <record_name>.x_momo_incident_co.journal_reader</record_name>
+        <reverted_from/>
+        <source>9661f6401b12089048a242e58d4bcbaa</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>douglas.schamberg</sys_created_by>
+        <sys_created_on>2020-03-09 20:07:59</sys_created_on>
+        <sys_id>16628ac81b2f049048a242e58d4bcbdd</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>170c0e94b920000001</sys_recorded_at>
+        <sys_updated_by>douglas.schamberg</sys_updated_by>
+        <sys_updated_on>2020-03-09 20:07:59</sys_updated_on>
+        <type>Access Roles</type>
+        <update_guid>1e628ac8a32f04900f0d726cec57dedc</update_guid>
+        <update_guid_history>1e628ac8a32f04900f0d726cec57dedc:1147348825</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="">caf24a0c1b2f049048a242e58d4bcb50</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>douglas.schamberg</sys_created_by>
+        <sys_created_on>2020-03-09 20:10:26</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_db_object display_value="" name="sys_security_acl_role">sys_security_acl_role</sys_db_object>
+        <sys_id>9f34f3785f7942eeb684bac841e9e204</sys_id>
+        <sys_metadata>344206c81b2f049048a242e58d4bcb54</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>.x_momo_incident_co.journal_reader</sys_name>
+        <sys_package display_value="Incident Converter" source="x_momo_incident_co">6502de90db014010f25513296896195f</sys_package>
+        <sys_parent display_value="">ab328a881b2f049048a242e58d4bcb39</sys_parent>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Incident Converter">6502de90db014010f25513296896195f</sys_scope>
+        <sys_scope_delete display_value="">853977b6927546409fb15b02df636100</sys_scope_delete>
+        <sys_update_name>sys_security_acl_role_344206c81b2f049048a242e58d4bcb54</sys_update_name>
+        <sys_update_version display_value="sys_security_acl_role_344206c81b2f049048a242e58d4bcb54">16628ac81b2f049048a242e58d4bcbdd</sys_update_version>
+        <sys_updated_by>douglas.schamberg</sys_updated_by>
+        <sys_updated_on>2020-03-09 20:10:26</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>
